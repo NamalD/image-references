@@ -12,6 +12,9 @@ export const loader = async () => {
 export default function Images() {
   const { images } = useLoaderData<typeof loader>();
 
+  // TODO: Display tags
+  // TODO: Display image previews
+  // TODO: Lightbox
   return (
     <main>
       <h1>Images</h1>
@@ -20,13 +23,7 @@ export default function Images() {
           <div key={image.id}>
             <h2>{image.name}</h2>
             <h3>{image.uploaded.toString()}</h3>
-            <ul>
-              {
-                image.tags.map(tag => (
-                  <li key={tag}>{tag}</li>
-                ))
-              }
-            </ul>
+            <img src={image.path} alt={image.name} />
           </div>
         ))
       }
