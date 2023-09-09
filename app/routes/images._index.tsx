@@ -1,9 +1,6 @@
-// TODO: Load images from the DB
-// TODO: Display images in a grid
-
-import { json } from '@remix-run/node';
-import { useLoaderData } from '@remix-run/react';
-import { getImages } from '~/routes/images.server';
+import { json } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import { getImages } from "~/routes/images.server";
 
 export const loader = async () => {
   return json({ images: await getImages() });
@@ -12,9 +9,14 @@ export const loader = async () => {
 export default function Images() {
   const { images } = useLoaderData<typeof loader>();
 
-  // TODO: Display tags
   // TODO: Display image previews
   // TODO: Lightbox
+  // TODO: Upload
+  // TODO: Add tags
+  // TODO: Delete tags
+  // TODO: Delete images
+  // TODO: Edit image metadata
+
   return (
     <main>
       <h1>Images</h1>
@@ -22,8 +24,16 @@ export default function Images() {
         images.map(image => (
           <div key={image.id}>
             <h2>{image.name}</h2>
-            <h3>{image.uploaded.toString()}</h3>
             <img src={image.path} alt={image.name} />
+            {
+              <ul>
+                {
+                  image.tags.map(tag => (
+                    <li key={tag.id}>{tag.name}</li>
+                  ))
+                }
+              </ul>
+            }
           </div>
         ))
       }
