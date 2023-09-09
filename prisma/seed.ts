@@ -1,44 +1,63 @@
-import { PrismaClient } from "@prisma/client";
-import bcrypt from "bcryptjs";
+import { PrismaClient } from '@prisma/client';
+import * as fs from 'fs';
 
 const prisma = new PrismaClient();
 
+const images = [
+  {
+    id: 1,
+    name: 'Banks of Acheron',
+    blob: fs.readFileSync('prisma/seed_images/banks_of_acheron.png'),
+    tags: [
+      { name: 'Painting' },
+      { name: 'Greek Myth' },
+      { name: 'God' },
+    ]
+  },
+  {
+    id: 2,
+    name: 'Animals in Moonlit Forest',
+    blob: fs.readFileSync('prisma/seed_images/animals_in_moonlit_forest.png'),
+    tags: [
+      { name: 'Animals' },
+      { name: 'Forest' },
+    ]
+  }
+];
+
 async function seed() {
-  const email = "rachel@remix.run";
+  prisma.tag.deleteMany({});
+  const tags = images
+    .flatMap((image) => image.tags)
+    .filter((tag, index, self) => self.findIndex((t) => t.name === tag.name) === index);
 
-  // cleanup the existing database
-  await prisma.user.delete({ where: { email } }).catch(() => {
-    // no worries if it doesn't exist yet
-  });
+  for (const tag of tags) {
+    console.log('Migrating tag:', tag);
+    await prisma.tag.upsert({
+      where: { name: tag.name },
+      update: {},
+      create: tag
+    });
+  }
 
-  const hashedPassword = await bcrypt.hash("racheliscool", 10);
-
-  const user = await prisma.user.create({
-    data: {
-      email,
-      password: {
-        create: {
-          hash: hashedPassword,
-        },
+  for (const image of images) {
+    console.log('Migrating image:', image);
+    await prisma.image.upsert({
+      where: { id: image.id },
+      update: {
+        ...image,
+        tags: {
+          set: image.tags
+        }
       },
-    },
-  });
-
-  await prisma.note.create({
-    data: {
-      title: "My first note",
-      body: "Hello, world!",
-      userId: user.id,
-    },
-  });
-
-  await prisma.note.create({
-    data: {
-      title: "My second note",
-      body: "Hello, world!",
-      userId: user.id,
-    },
-  });
+      create: {
+        ...image,
+        tags: {
+          connect: image.tags
+        }
+      }
+    });
+  }
 
   console.log(`Database has been seeded. 🌱`);
 }
