@@ -6,7 +6,7 @@ const images = [
   {
     id: 1,
     name: 'Banks of Acheron',
-    path: 'img/banks_of_acheron.png',
+    path: '/img/banks_of_acheron.png',
     tags: [
       { name: 'Painting' },
       { name: 'Greek Myth' },
@@ -16,7 +16,7 @@ const images = [
   {
     id: 2,
     name: 'Animals in Moonlit Forest',
-    path: 'img/animals_in_moonlit_forest.png',
+    path: '/img/animals_in_moonlit_forest.png',
     tags: [
       { name: 'Animals' },
       { name: 'Forest' },
