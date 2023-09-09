@@ -1,5 +1,4 @@
 import { PrismaClient } from '@prisma/client';
-import * as fs from 'fs';
 
 const prisma = new PrismaClient();
 
@@ -7,7 +6,7 @@ const images = [
   {
     id: 1,
     name: 'Banks of Acheron',
-    blob: fs.readFileSync('prisma/seed_images/banks_of_acheron.png'),
+    path: 'public/img/banks_of_acheron.jpg',
     tags: [
       { name: 'Painting' },
       { name: 'Greek Myth' },
@@ -17,7 +16,7 @@ const images = [
   {
     id: 2,
     name: 'Animals in Moonlit Forest',
-    blob: fs.readFileSync('prisma/seed_images/animals_in_moonlit_forest.png'),
+    path: 'public/img/animals_in_moonlit_forest.jpg',
     tags: [
       { name: 'Animals' },
       { name: 'Forest' },

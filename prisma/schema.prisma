@@ -11,7 +11,7 @@ model Image {
   id          Int         @id @default(autoincrement())
   name        String
   description String?
-  blob        Bytes
+  path        String
   uploaded    DateTime    @default(now())
   tags        Tag[]
 }
