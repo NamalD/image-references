@@ -11,6 +11,14 @@ export default function ImagesUpload() {
 
   return (
     <Form method="post">
+      <FormElement label="Image">
+        <Input
+          name="image"
+          type="file"
+          accept="image/*"
+        />
+      </FormElement>
+
       <FormElement label="Name">
         <Input name="name" />
       </FormElement>
