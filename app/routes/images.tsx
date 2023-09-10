@@ -21,7 +21,6 @@ export const action = async ({ request }: ActionArgs) => {
 }
 
 export default function Images() {
-  // TODO: Single image page
   // TODO: Edit image metadata
   // TODO: Refactor each image to page
   // TODO: Lightbox
