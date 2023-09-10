@@ -11,16 +11,17 @@ export const loader = async ({ params }: LoaderArgs) => {
   invariant(image, "Image not found");
 
   return json({ image });
-}
+};
 
 export default function ImageById() {
   const { image } = useLoaderData<typeof loader>();
 
   return (
-    <img
-      src={image.path}
-      alt={image.name}
-      className="h-60 w-60 object-cover"
-    />
-  )
+    <div className="mt-1 flex justify-center h-96">
+      <img
+        src={image.path}
+        alt={image.name}
+      />
+    </div>
+  );
 }
