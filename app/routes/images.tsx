@@ -9,12 +9,12 @@ export const loader = async () => {
 export default function Images() {
   const { images } = useLoaderData<typeof loader>();
 
-  // TODO: Add tags
-  // TODO: Delete tags
   // TODO: Delete images
   // TODO: Edit image metadata
   // TODO: Refactor each image to page
   // TODO: Lightbox
+  // TODO: Add tags
+  // TODO: Delete tags
 
   return (
     <main className="m-3">
