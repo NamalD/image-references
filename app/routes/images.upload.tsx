@@ -16,7 +16,7 @@ export const action = async ({ request }: ActionArgs) => {
   const image = formData.get("image");
 
   const errors = {
-    image: !image ? "Image is required" : null,
+    image: !image ? "Image is required" : null
   };
 
   if (Object.values(errors).some(Boolean)) {
@@ -36,29 +36,41 @@ export default function ImagesUpload() {
   // TODO: Support new tags
   // TODO: File upload
   // TODO: Modal view
-  // TODO: Form validation
+  // TODO: Cancel button
 
   const errors = useActionData<typeof action>();
 
   return (
-    <Form method="post" encType="multipart/form-data">
-      <FormElement
-        label="Image"
-        error={errors?.image}
-      >
-        <Input
-          name="image"
-          type="file"
-          accept="image/*"
-        />
-      </FormElement>
+    <>
+      <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+      <div className="fixed inset-0 z-10 w-screen">
+        <div className="flex min-h-full items-center justify-center p-4">
+          <div className="bg-white p-4 rounded-md shadow-lg border border-gray-700">
+            <Form
+              method="post"
+              encType="multipart/form-data"
+            >
+              <FormElement
+                label="Image"
+                error={errors?.image}
+              >
+                <Input
+                  name="image"
+                  type="file"
+                  accept="image/*"
+                />
+              </FormElement>
 
-      <button
-        type="submit"
-        className="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700 mt-3"
-      >
-        Upload
-      </button>
-    </Form>
+              <button
+                type="submit"
+                className="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700 mt-3"
+              >
+                Upload
+              </button>
+            </Form>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
