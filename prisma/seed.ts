@@ -25,7 +25,6 @@ const images = [
 ];
 
 async function seed() {
-  prisma.tag.deleteMany({});
   const tags = images
     .flatMap((image) => image.tags)
     .filter((tag, index, self) => self.findIndex((t) => t.name === tag.name) === index);
