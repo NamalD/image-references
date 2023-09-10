@@ -13,6 +13,17 @@ export function getImageCount() {
   return prisma.image.count();
 }
 
+export function getImageById(id: number) {
+  return prisma.image.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      tags: true,
+    }
+  });
+}
+
 export const localFileUploadHandler =
   unstable_createFileUploadHandler({
     directory: 'public/img',
