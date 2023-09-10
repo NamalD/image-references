@@ -6,7 +6,6 @@ import { useOptionalUser } from "~/utils";
 export const meta: V2_MetaFunction = () => [{ title: "Remix Notes" }];
 
 export default function Index() {
-  const user = useOptionalUser();
   return (
     <div className="text-center mx-auto">
       <Link
