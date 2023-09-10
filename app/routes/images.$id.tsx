@@ -1,16 +1,26 @@
 import { json, LoaderArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import invariant from "tiny-invariant";
+import { getImageById } from "~/routes/images.server";
 
 export const loader = async ({ params }: LoaderArgs) => {
-  return json({ id: params.id });
+  const id = parseInt(params.id ?? "");
+  invariant(!isNaN(id), "Image ID must be a number");
+
+  const image = await getImageById(id);
+  invariant(image, "Image not found");
+
+  return json({ image });
 }
 
 export default function ImageById() {
-  const { id } = useLoaderData<typeof loader>();
+  const { image } = useLoaderData<typeof loader>();
 
   return (
-    <div>
-      <h1>Image {id}</h1>
-    </div>
+    <img
+      src={image.path}
+      alt={image.name}
+      className="h-60 w-60 object-cover"
+    />
   )
 }
