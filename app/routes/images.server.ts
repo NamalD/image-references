@@ -9,6 +9,10 @@ export const getImages = async () => {
   });
 };
 
+export function getImageCount() {
+  return prisma.image.count();
+}
+
 export const localFileUploadHandler =
   unstable_createFileUploadHandler({
     directory: 'public/img',

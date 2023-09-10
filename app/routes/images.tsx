@@ -1,10 +1,10 @@
-import { ActionArgs, json, LoaderArgs } from "@remix-run/node";
+import { ActionArgs, json } from "@remix-run/node";
 import { Form, Link, Outlet, useLoaderData } from "@remix-run/react";
 import { prisma } from "~/db.server";
-import { getImages } from "~/routes/images.server";
+import { getImageCount } from "~/routes/images.server";
 
-export const loader = async ({ params }: LoaderArgs) => {
-  return json({ id: params.id, images: await getImages() });
+export const loader = async () => {
+  return json({ imageCount: await getImageCount() });
 };
 
 export const action = async ({ request }: ActionArgs) => {
@@ -26,7 +26,7 @@ export const action = async ({ request }: ActionArgs) => {
 }
 
 export default function Images() {
-  const { images } = useLoaderData<typeof loader>();
+  const { imageCount } = useLoaderData<typeof loader>();
 
   // TODO: Single image page
   // TODO: Edit image metadata
@@ -48,7 +48,7 @@ export default function Images() {
         </Link>
 
         {
-          images.length > 0 && (
+          imageCount > 0 && (
             <Form method="delete">
               <button
                 type="submit"
@@ -62,18 +62,6 @@ export default function Images() {
       </div>
 
       <Outlet />
-      <div className="flex flex-wrap w-11/12 justify-center gap-3">
-        {
-          images.map(image => (
-            <img
-              key={image.id}
-              src={image.path}
-              alt={image.name}
-              className="h-60 w-60 object-cover"
-            />
-          ))
-        }
-      </div>
     </main>
   );
 }
