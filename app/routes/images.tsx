@@ -20,32 +20,17 @@ export default function Images() {
     <main className="m-3">
       <h1 className="text-xl mb-3">Images</h1>
       <Outlet />
-      <div className="grid grid-cols-3 gap-3">
-      {
-        images.map(image => (
-          <div key={image.id}>
-            <h2 className="text-lg text-gray-900">
-              {image.name}
-            </h2>
+      <div className="flex flex-wrap w-11/12 justify-center gap-3">
+        {
+          images.map(image => (
             <img
+              key={image.id}
               src={image.path}
               alt={image.name}
-              className="h-1/3"
+              className="h-60 w-60 object-cover"
             />
-            {
-              <ul className="text-gray-600 flex flex-wrap items-center">
-                {
-                  image.tags.map(tag => (
-                    <li key={tag.id}>
-                      <span className="italic mr-4">{tag.name}</span>
-                    </li>
-                  ))
-                }
-              </ul>
-            }
-          </div>
-        ))
-      }
+          ))
+        }
       </div>
     </main>
   );
