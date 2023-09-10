@@ -1,11 +1,6 @@
 import { ActionArgs, json } from "@remix-run/node";
-import { Form, Link, Outlet, useLoaderData } from "@remix-run/react";
+import { Link, Outlet } from "@remix-run/react";
 import { prisma } from "~/db.server";
-import { getImageCount } from "~/routes/images.server";
-
-export const loader = async () => {
-  return json({ imageCount: await getImageCount() });
-};
 
 export const action = async ({ request }: ActionArgs) => {
   if (request.method !== "DELETE") {
@@ -26,8 +21,6 @@ export const action = async ({ request }: ActionArgs) => {
 }
 
 export default function Images() {
-  const { imageCount } = useLoaderData<typeof loader>();
-
   // TODO: Single image page
   // TODO: Edit image metadata
   // TODO: Refactor each image to page
@@ -39,7 +32,7 @@ export default function Images() {
     <main className="m-3">
       <h1 className="text-xl mb-3">Images</h1>
 
-      <div className="flex gap-1 mb-3">
+      <div className="flex gap-1">
         <Link
           to="upload"
           className="bg-green-600 text-white px-4 py-2 rounded hover:bg-orange-700 mt-3"
@@ -47,18 +40,6 @@ export default function Images() {
           Upload
         </Link>
 
-        {
-          imageCount > 0 && (
-            <Form method="delete">
-              <button
-                type="submit"
-                className="bg-red-600 text-white px-4 py-2 rounded hover:bg-orange-700 mt-3"
-              >
-                Delete All
-              </button>
-            </Form>
-          )
-        }
       </div>
 
       <Outlet />
