@@ -9,7 +9,6 @@ export const loader = async () => {
 export default function Images() {
   const { images } = useLoaderData<typeof loader>();
 
-  // TODO: Delete images
   // TODO: Edit image metadata
   // TODO: Refactor each image to page
   // TODO: Lightbox
