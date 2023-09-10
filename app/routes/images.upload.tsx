@@ -14,7 +14,6 @@ export const action = async ({ request }: ActionArgs) => {
   );
 
   const image = formData.get("image");
-  invariant(image instanceof NodeOnDiskFile, "Image must be a file");
 
   const errors = {
     image: !image ? "Image is required" : null,
@@ -24,6 +23,7 @@ export const action = async ({ request }: ActionArgs) => {
     return json(errors);
   }
 
+  invariant(image instanceof NodeOnDiskFile, "Image must be a file");
   await uploadImage(image);
 
   // TODO: Redirect to the uploaded image
